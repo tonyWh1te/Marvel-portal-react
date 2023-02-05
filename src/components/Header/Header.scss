@@ -1,0 +1,40 @@
+@use '../../styles/vars';
+
+.header {
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 0 54px;
+  }
+  &__title {
+    font-weight: 700;
+    font-size: 28px;
+    span {
+      color: vars.$red;
+    }
+  }
+  &__menu {
+    padding-left: 20px;
+  }
+  &__menu-list {
+    display: flex;
+  }
+  &__list-item::after {
+    content: '/';
+    font-weight: 700;
+    font-size: 24px;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+  &__list-item:last-child::after {
+    display: none;
+  }
+  &__link {
+    font-weight: 700;
+    font-size: 24px;
+  }
+  &__link:hover {
+    color: vars.$red;
+  }
+}

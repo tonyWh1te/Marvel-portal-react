@@ -1,0 +1,47 @@
+@use '../../../styles/vars';
+
+.char-content {
+  &__info {
+    background-color: #fff;
+    padding: 25px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+  }
+  &__block {
+    display: flex;
+    column-gap: 25px;
+    margin-bottom: 15px;
+  }
+  &__info-name {
+    display: block;
+    color: #000;
+    @extend %title;
+    margin-bottom: 34px;
+  }
+  &__btns {
+    a:nth-child(1) {
+      margin-bottom: 10px;
+    }
+  }
+  &__info-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+  &__descr {
+    margin-bottom: 10px;
+  }
+  &__comics {
+    display: block;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  &__comics-item {
+    width: 100%;
+    padding: 4px 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  &__comics-item:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}

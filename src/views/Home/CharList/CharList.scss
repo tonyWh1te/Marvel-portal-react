@@ -1,0 +1,40 @@
+@use '../../../styles/vars';
+
+.char-content {
+  padding: 52px 0 44px;
+  position: relative;
+  z-index: 1;
+  &__inner {
+    display: flex;
+    column-gap: 25px;
+    align-items: flex-start;
+  }
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+    column-gap: 25px;
+    row-gap: 30px;
+    margin-bottom: 44px;
+  }
+  &__list-item {
+    width: 200px;
+    height: 318px;
+    background-color: vars.$dark;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    transition: 0.3s transform;
+  }
+  &__img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+  }
+  &__name {
+    color: #fff;
+    padding: 15px;
+    @extend %title;
+  }
+  .char-content__list-item--selected {
+    box-shadow: 0 5px 20px vars.$red;
+    transform: translateY(-8px);
+  }
+}

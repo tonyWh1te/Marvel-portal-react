@@ -1,0 +1,18 @@
+@use '../../styles/vars';
+
+.banner {
+  &__inner {
+    width: 100%;
+    max-height: 100px;
+    background-color: vars.$dark;
+    padding: 0 25px 0 45px;
+    display: grid;
+    grid-template-columns: 152px auto 133px;
+  }
+  &__text {
+    padding: 18px 0 26px 82px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 24px;
+  }
+}

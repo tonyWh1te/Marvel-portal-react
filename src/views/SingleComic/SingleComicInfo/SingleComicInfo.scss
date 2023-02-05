@@ -1,0 +1,41 @@
+@use '../../../styles/vars';
+
+.single-comic {
+  padding-top: 50px;
+  &__inner {
+    display: flex;
+    column-gap: 50px;
+    align-items: flex-start;
+  }
+  &__img {
+    width: 294px;
+    height: 450px;
+    object-fit: cover;
+  }
+  &__info {
+    width: 550px;
+  }
+  &__title {
+    @extend %title;
+    text-transform: none;
+    margin-bottom: 28px;
+  }
+  &__desc {
+    margin-bottom: 25px;
+    font-size: 18px;
+  }
+  &__price {
+    font-weight: 700;
+    font-size: 24px;
+    color: vars.$red;
+  }
+  &__back {
+    font-weight: 700;
+    font-size: 18px;
+    flex-grow: 1;
+    text-align: end;
+  }
+  &__back:hover {
+    color: vars.$red;
+  }
+}

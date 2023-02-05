@@ -1,0 +1,31 @@
+@import './reset';
+
+html,
+body {
+  height: 100%;
+  min-width: 320px;
+  background-color: #fff;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  overflow-x: hidden;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  position: relative;
+}
+
+.main {
+  flex: 1 0 auto;
+  position: relative;
+}
+
+.container {
+  max-width: 1130px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
