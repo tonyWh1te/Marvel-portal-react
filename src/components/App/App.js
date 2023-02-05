@@ -8,9 +8,9 @@ export default function App() {
     <div className="wrapper">
       <Header />
       <main className="main">
-        {/* <HomePage /> */}
+        <HomePage />
         {/* <ComicsPage /> */}
-        <SingleComicPage />
+        {/* <SingleComicPage /> */}
       </main>
     </div>
   );
