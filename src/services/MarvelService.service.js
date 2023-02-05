@@ -11,11 +11,23 @@ export default class MarvelService {
     return await response.json();
   };
 
-  getAllCharacters() {
-    return this.#getResourse(`${this.#_apiBase}characters?limit=9&offset=210&apikey=${process.env.REACT_APP_API_KEY}`);
-  }
+  #transformChar = (char) => ({
+    name: char.name,
+    description: char.description,
+    thumbnail: `${char.thumbnail.path}.${char.thumbnail.extension}`,
+    homepage: char.urls[0].url,
+    wiki: char.urls[1].url,
+  });
 
-  getCharacter(id) {
-    return this.#getResourse(`${this.#_apiBase}characters/${id}?apikey=${process.env.REACT_APP_API_KEY}`);
-  }
+  getAllCharacters = async () => {
+    const res = await this.#getResourse(`${this.#_apiBase}characters?limit=9&offset=210&apikey=${process.env.REACT_APP_API_KEY}`);
+
+    return res.data.results.map(this.#transformChar);
+  };
+
+  getCharacter = async (id) => {
+    const res = await this.#getResourse(`${this.#_apiBase}characters/${id}?apikey=${process.env.REACT_APP_API_KEY}`);
+
+    return this.#transformChar(res.data.results[0]);
+  };
 }
