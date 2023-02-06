@@ -10,8 +10,8 @@ export default function CharInfo() {
         <div>
           <b className="char-content__info-name">THOR</b>
           <div className="char-content__btns">
-            <Button isLink={true} children={'homepage'} classes={['button__main']} />
-            <Button isLink={true} children={'wiki'} classes={['button__secondary']} />
+            <Button href={'#'} children={'homepage'} classes={['button__main']} />
+            <Button href={'#'} children={'wiki'} classes={['button__secondary']} />
           </div>
         </div>
       </div>

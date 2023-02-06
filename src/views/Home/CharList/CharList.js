@@ -43,7 +43,7 @@ export default function CharList() {
           </a>
         </li>
       </ul>
-      <Button isLink={false} children={'LOAD MORE'} classes={['button__main', 'button__long']} />
+      <Button href={null} children={'LOAD MORE'} classes={['button__main', 'button__long']} />
     </div>
   );
 }

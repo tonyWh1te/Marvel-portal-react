@@ -1,8 +1,8 @@
 import './Button.scss';
 
-export default function Button({ isLink, children, classes }) {
-  return isLink ? (
-    <a className={`button ${classes.join(' ')}`} href="#">
+export default function Button({ href, children, classes }) {
+  return href ? (
+    <a className={`button ${classes.join(' ')}`} href={href}>
       <div className="inner">{children}</div>
     </a>
   ) : (
