@@ -9,6 +9,9 @@
     column-gap: 25px;
     align-items: flex-start;
   }
+  &__box {
+    flex-basis: 60%;
+  }
   &__list {
     display: grid;
     grid-template-columns: repeat(3, 200px);
@@ -26,7 +29,6 @@
   &__img {
     width: 200px;
     height: 200px;
-    object-fit: cover;
   }
   &__name {
     color: #fff;

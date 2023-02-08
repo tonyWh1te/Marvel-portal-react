@@ -51,9 +51,11 @@ export default class RandomChar extends Component {
       <div className="random-char">
         <div className="container">
           <div className="random-char__inner">
-            {errorMessage}
-            {spinner}
-            {content}
+            <div className="random-char__block">
+              {errorMessage}
+              {spinner}
+              {content}
+            </div>
             <div className="random-char__choice">
               <b className="random-char__title">
                 Random character for today! <br />
@@ -80,7 +82,7 @@ const View = ({ char }) => {
   const objectFit = thumbnail.includes('image_not_available') ? 'contain' : 'cover';
 
   return (
-    <div className="random-char__block">
+    <>
       <img className="random-char__img" src={thumbnail} alt={name} style={{ objectFit: objectFit }} />
       <div className="random-char__info">
         <b className="random-char__name">{name}</b>
@@ -90,6 +92,6 @@ const View = ({ char }) => {
           <Button href={wiki} children={'wiki'} classes={['button__secondary']} />
         </div>
       </div>
-    </div>
+    </>
   );
 };

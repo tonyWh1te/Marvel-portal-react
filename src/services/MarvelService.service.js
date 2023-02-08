@@ -12,6 +12,7 @@ export default class MarvelService {
   };
 
   #transformChar = (char) => ({
+    id: char.id,
     name: char.name,
     description: char.description ? char.description : 'Description not found',
     thumbnail: `${char.thumbnail.path}.${char.thumbnail.extension}`,
