@@ -19,6 +19,7 @@
     margin-bottom: 34px;
   }
   &__btns {
+    width: 50%;
     a:nth-child(1) {
       margin-bottom: 10px;
     }
@@ -44,5 +45,12 @@
   }
   &__comics-item:not(:last-child) {
     margin-bottom: 10px;
+  }
+  &__select {
+    font-weight: 700;
+    font-size: 18px;
+    display: block;
+    margin-bottom: 32px;
+    text-align: center;
   }
 }

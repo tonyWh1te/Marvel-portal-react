@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import CharListLoader from '../../../components/CharListLoader/CharListLoader';
+import CharListLoader from '../../../components/Loaders/CharListLoader/CharListLoader';
 import MarvelService from '../../../services/MarvelService.service';
 import Button from '../../../components/Button/Button';
 import './CharList.scss';
@@ -35,11 +35,9 @@ export default class CharList extends Component {
         const objectFit = thumbnail.includes('image_not_available') ? 'unset' : 'cover';
 
         return (
-          <li className="char-content__list-item" key={id}>
-            <a className="char-content__link" href="/#">
-              <img className="char-content__img" src={thumbnail} alt={name} style={{ objectFit: objectFit }} />
-              <p className="char-content__name">{name}</p>
-            </a>
+          <li className="char-content__list-item" key={id} onClick={() => this.props.onCharSelected(id)}>
+            <img className="char-content__img" src={thumbnail} alt={name} style={{ objectFit: objectFit }} />
+            <p className="char-content__name">{name}</p>
           </li>
         );
       }
