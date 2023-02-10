@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import CharListLoader from '../../../components/Loaders/CharListLoader/CharListLoader';
 import MarvelService from '../../../services/MarvelService.service';
-import Button from '../../../components/Button/Button';
 import './CharList.scss';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 
@@ -9,7 +8,10 @@ export default class CharList extends Component {
   state = {
     charList: [],
     loading: true,
+    newItemsLoading: false,
     error: false,
+    offset: 100,
+    charEnded: false,
   };
 
   marvelService = new MarvelService();
@@ -19,11 +21,43 @@ export default class CharList extends Component {
   };
 
   componentDidMount() {
-    this.marvelService
-      .getAllCharacters()
-      .then((charList) => this.setState({ charList, loading: false }))
-      .catch(this.onError);
+    this.onRequest();
+    window.addEventListener('scroll', this.handleScroll, true);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = (e) => {
+    const { offset, newItemsLoading, charEnded } = this.state;
+    const target = e.target;
+
+    if (target.scrollHeight - target.clientHeight - target.scrollTop < 200 && !newItemsLoading && !charEnded) {
+      this.onCharListLoading();
+      this.onRequest(offset);
+    }
+  };
+
+  onCharListLoading = () => {
+    this.setState({ newItemsLoading: true });
+  };
+
+  onCharListLoaded = (newCharList) => {
+    const ended = newCharList.length < 9 ? true : false;
+
+    this.setState(({ offset, charList }) => ({
+      charList: [...charList, ...newCharList],
+      loading: false,
+      offset: offset + 9,
+      newItemsLoading: false,
+      charEnded: ended,
+    }));
+  };
+
+  onRequest = (offset) => {
+    this.marvelService.getAllCharacters(offset).then(this.onCharListLoaded).catch(this.onError);
+  };
 
   renderItems(arr) {
     const loading = this.state.loading;
@@ -57,7 +91,7 @@ export default class CharList extends Component {
       <div className="char-content__box">
         {errorMessage}
         {content}
-        <Button href={null} children={'LOAD MORE'} classes={['button__main', 'button__long']} />
+        {/* <Button href={null} children={'LOAD MORE'} classes={['button__main', 'button__long']} /> */}
       </div>
     );
   }
