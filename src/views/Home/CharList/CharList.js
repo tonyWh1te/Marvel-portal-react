@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import CharListLoader from '../../../components/Loaders/CharListLoader/CharListLoader';
 import MarvelService from '../../../services/MarvelService.service';
 import './CharList.scss';
@@ -91,8 +92,11 @@ export default class CharList extends Component {
       <div className="char-content__box">
         {errorMessage}
         {content}
-        {/* <Button href={null} children={'LOAD MORE'} classes={['button__main', 'button__long']} /> */}
       </div>
     );
   }
 }
+
+CharList.propTypes = {
+  onCharSelected: PropTypes.func.isRequired,
+};

@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import Spinner from '../../../components/Spinner/Spinner';
 import Skeleton from '../../../components/Loaders/Skeleton/Skeleton';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
@@ -96,4 +97,8 @@ const View = ({ char: { name, description, thumbnail, homepage, wiki, comics } }
       </ul>
     </>
   );
+};
+
+CharInfo.propTypes = {
+  charId: PropTypes.number,
 };
