@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CharListLoader from '../../../components/Loaders/CharListLoader/CharListLoader';
 import MarvelService from '../../../services/MarvelService.service';
@@ -14,6 +14,8 @@ export default class CharList extends Component {
     offset: 100,
     charEnded: false,
   };
+
+  charRefs = [];
 
   marvelService = new MarvelService();
 
@@ -60,6 +62,28 @@ export default class CharList extends Component {
     this.marvelService.getAllCharacters(offset).then(this.onCharListLoaded).catch(this.onError);
   };
 
+  onCharFocus = (id) => {
+    this.charRefs.forEach((char) => char.classList.remove('char-content__list-item--selected'));
+
+    this.charRefs[id].classList.add('char-content__list-item--selected');
+    this.charRefs[id].focus();
+  };
+
+  setElemRef = (ref) => {
+    this.charRefs.push(ref);
+  };
+
+  onCharSelected = (id) => {
+    this.props.onCharSelected(id);
+  };
+
+  onKeyDown = (e, i, id) => {
+    if (e.keyCode === 13 || typeof e.keyCode === 'undefined') {
+      this.onCharFocus(i);
+      this.onCharSelected(id);
+    }
+  };
+
   renderItems(arr) {
     const loading = this.state.loading;
     const items = (loading ? [...new Array(9)] : arr).map((item, i) => {
@@ -70,7 +94,17 @@ export default class CharList extends Component {
         const objectFit = thumbnail.includes('image_not_available') ? 'unset' : 'cover';
 
         return (
-          <li className="char-content__list-item" key={id} onClick={() => this.props.onCharSelected(id)}>
+          <li
+            className="char-content__list-item"
+            key={id}
+            tabIndex={0}
+            onClick={() => {
+              this.onCharSelected(id);
+              this.onCharFocus(i);
+            }}
+            onKeyDown={(e) => this.onKeyDown(e, i, id)}
+            ref={this.setElemRef}
+          >
             <img className="char-content__img" src={thumbnail} alt={name} style={{ objectFit: objectFit }} />
             <p className="char-content__name">{name}</p>
           </li>
