@@ -1,6 +1,6 @@
 import './Button.scss';
 
-export default function Button({ href, children, classes, onClick }) {
+const Button = ({ href, children, classes, onClick }) => {
   return href ? (
     <a className={`button ${classes.join(' ')}`} href={href}>
       <div className="inner">{children}</div>
@@ -10,4 +10,6 @@ export default function Button({ href, children, classes, onClick }) {
       <div className="inner">{children}</div>
     </button>
   );
-}
+};
+
+export default Button;

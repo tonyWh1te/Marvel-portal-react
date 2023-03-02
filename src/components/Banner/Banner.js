@@ -1,7 +1,7 @@
 import { Avengers, AvengersLogo } from '../../assets';
 import './Banner.scss';
 
-export default function Banner() {
+const Banner = () => {
   return (
     <div className="banner">
       <div className="container">
@@ -17,4 +17,6 @@ export default function Banner() {
       </div>
     </div>
   );
-}
+};
+
+export default Banner;

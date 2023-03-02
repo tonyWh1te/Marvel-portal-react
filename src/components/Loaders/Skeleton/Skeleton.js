@@ -1,6 +1,6 @@
 import ContentLoader from 'react-content-loader';
 
-export default function Skeleton(props) {
+const Skeleton = (props) => {
   return (
     <>
       <b className="char-content__select">Please select a character to see information</b>
@@ -13,4 +13,6 @@ export default function Skeleton(props) {
       </ContentLoader>
     </>
   );
-}
+};
+
+export default Skeleton;

@@ -3,7 +3,7 @@ import HomePage from '../../views/Home/HomePage/HomePage';
 import ComicsPage from '../../views/Comics/ComicsPage/ComicsPage';
 import SingleComicPage from '../../views/SingleComic/SingleComicPage/SingleComicPage';
 
-export default function App() {
+const App = () => {
   return (
     <div className="wrapper">
       <Header />
@@ -14,4 +14,6 @@ export default function App() {
       </main>
     </div>
   );
-}
+};
+
+export default App;

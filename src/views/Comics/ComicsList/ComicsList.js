@@ -2,7 +2,7 @@ import Button from '../../../components/Button/Button';
 import { UW, XMen } from '../../../assets';
 import './ComicsList.scss';
 
-export default function ComicsList() {
+const ComicsList = () => {
   return (
     <div className="comics">
       <div className="container">
@@ -68,4 +68,6 @@ export default function ComicsList() {
       </div>
     </div>
   );
-}
+};
+
+export default ComicsList;

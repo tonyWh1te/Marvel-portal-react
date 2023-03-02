@@ -1,7 +1,7 @@
 import { XMen } from '../../../assets';
 import './SingleComicInfo.scss';
 
-export default function SingleComicInfo() {
+const SingleComicInfo = () => {
   return (
     <section className="single-comic">
       <div className="container">
@@ -25,4 +25,6 @@ export default function SingleComicInfo() {
       </div>
     </section>
   );
-}
+};
+
+export default SingleComicInfo;
