@@ -8,42 +8,25 @@ import './RandomChar.scss';
 
 const RandomChar = () => {
   const [char, setChar] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+
+  const marvelService = new MarvelService();
+  const { loading, error, clearError } = marvelService.http;
 
   useEffect(() => updateChar(), []);
 
-  const onError = () => {
-    setError(true);
-    setLoading(false);
-  };
-
-  const marvelService = new MarvelService();
-
   const updateChar = () => {
     const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-    marvelService
-      .getCharacter(id)
-      .then((char) => {
-        setChar(char);
-        setLoading(false);
-      })
-      .catch(onError);
+    marvelService.getCharacter(id).then((char) => setChar(char));
   };
 
   const onChangeChar = () => {
-    onCharLoading();
+    clearError();
     updateChar();
-  };
-
-  const onCharLoading = () => {
-    setLoading(true);
-    setError(false);
   };
 
   const errorMessage = error ? <ErrorMessage /> : null;
   const spinner = loading ? <Spinner /> : null;
-  const content = !(loading || error) ? <View char={char} /> : null;
+  const content = !(loading || error || Object.keys(char).length === 0) ? <View char={char} /> : null;
 
   return (
     <div className="random-char">

@@ -9,22 +9,11 @@ import './CharInfo.scss';
 
 const CharInfo = (props) => {
   const [char, setChar] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
 
   const marvelService = new MarvelService();
+  const { loading, error, clearError } = marvelService.http;
 
   useEffect(() => updateChar(), [props.charId]);
-
-  const onCharLoading = () => {
-    setLoading(true);
-    setError(false);
-  };
-
-  const onError = () => {
-    setError(true);
-    setLoading(false);
-  };
 
   const updateChar = () => {
     const { charId } = props;
@@ -33,15 +22,11 @@ const CharInfo = (props) => {
       return;
     }
 
-    onCharLoading();
+    clearError();
 
-    marvelService
-      .getCharacter(charId)
-      .then((char) => {
-        setChar(char);
-        setLoading(false);
-      })
-      .catch(onError);
+    marvelService.getCharacter(charId).then((char) => {
+      setChar(char);
+    });
   };
 
   const skeleton = !(error || loading || char) ? <Skeleton /> : null;

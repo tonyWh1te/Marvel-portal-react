@@ -7,20 +7,15 @@ import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 
 const CharList = (props) => {
   const [charList, setCharList] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [newItemsLoading, setNewItemsLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [firstLoading, setFirstLoading] = useState(true);
   const [offset, setOffset] = useState(100);
   const [charEnded, setCharEnded] = useState(false);
 
   const charRefs = useRef([]);
 
   const marvelService = new MarvelService();
-
-  const onError = () => {
-    setError(true);
-    setLoading(false);
-  };
+  const { loading, error } = marvelService.http;
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, true);
@@ -32,33 +27,29 @@ const CharList = (props) => {
 
   useEffect(() => {
     if (newItemsLoading && !charEnded) {
-      onRequest();
+      onRequest(offset);
     }
   }, [newItemsLoading]);
 
   const handleScroll = (e) => {
     const target = e.target;
     if (target.scrollHeight - target.clientHeight - target.scrollTop < 200) {
-      onCharListLoading();
+      setNewItemsLoading(true);
     }
-  };
-
-  const onCharListLoading = () => {
-    setNewItemsLoading(true);
   };
 
   const onCharListLoaded = (newCharList) => {
     const ended = newCharList.length < 9 ? true : false;
 
     setCharList((charList) => [...charList, ...newCharList]);
-    setLoading(false);
     setOffset((offset) => offset + 9);
     setNewItemsLoading(false);
+    setFirstLoading(false);
     setCharEnded(ended);
   };
 
-  const onRequest = () => {
-    marvelService.getAllCharacters(offset).then(onCharListLoaded).catch(onError);
+  const onRequest = (offset) => {
+    marvelService.getAllCharacters(offset).then(onCharListLoaded);
   };
 
   const onCharFocus = (id) => {
@@ -80,8 +71,8 @@ const CharList = (props) => {
   };
 
   const renderItems = (arr) => {
-    const items = (loading ? [...new Array(9)] : arr).map((item, i) => {
-      if (loading) {
+    const items = (loading && firstLoading ? [...new Array(9)] : arr).map((item, i) => {
+      if (loading && firstLoading) {
         return <CharListLoader key={i} />;
       } else {
         const { id, name, thumbnail } = item;
@@ -112,12 +103,11 @@ const CharList = (props) => {
   const items = renderItems(charList);
 
   const errorMessage = error ? <ErrorMessage /> : null;
-  const content = !error ? items : null;
 
   return (
     <div className="char-content__box">
       {errorMessage}
-      {content}
+      {items}
     </div>
   );
 };
