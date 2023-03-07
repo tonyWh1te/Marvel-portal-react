@@ -54,8 +54,12 @@ const View = ({ char: { name, description, thumbnail, homepage, wiki, comics } }
         <div>
           <b className="char-content__info-name">{name}</b>
           <div className="char-content__btns">
-            <Button href={homepage} children={'homepage'} classes={['button__main']} />
-            <Button href={wiki} children={'wiki'} classes={['button__secondary']} />
+            <Button href={homepage} classes={['button__main']}>
+              homepage
+            </Button>
+            <Button href={wiki} classes={['button__secondary']}>
+              wiki
+            </Button>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import CharListLoader from '../../../components/Loaders/CharListLoader/CharListLoader';
+import ItemsLoader from '../../../components/Loaders/ItemsLoader/ItemsLoader';
 import MarvelService from '../../../services/MarvelService.service';
 import './CharList.scss';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
@@ -73,7 +73,11 @@ const CharList = (props) => {
   const renderItems = (arr) => {
     const items = (loading && firstLoading ? [...new Array(9)] : arr).map((item, i) => {
       if (loading && firstLoading) {
-        return <CharListLoader key={i} />;
+        return (
+          <ItemsLoader options={{ speed: 4, width: 200, height: 318, viewBox: '0 0 200 318' }} key={i}>
+            <rect x="0" y="0" rx="0" ry="0" width="200" height="318" />
+          </ItemsLoader>
+        );
       } else {
         const { id, name, thumbnail } = item;
         const objectFit = thumbnail.includes('image_not_available') ? 'unset' : 'cover';

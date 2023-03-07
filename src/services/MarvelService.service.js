@@ -16,6 +16,13 @@ export default class MarvelService {
     comics: char.comics.items,
   });
 
+  #transformComic = (comic) => ({
+    id: comic.id,
+    title: comic.title,
+    thumbnail: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
+    price: comic.prices[0].price === 0 ? 'not avaible' : comic.prices[0].price,
+  });
+
   getAllCharacters = async (offset = this.#_offestBase) => {
     const res = await this.http.request(`${this.#_apiBase}characters?limit=9&offset=${offset}&apikey=${process.env.REACT_APP_API_KEY}`);
 
@@ -25,5 +32,11 @@ export default class MarvelService {
   getCharacter = async (id) => {
     const res = await this.http.request(`${this.#_apiBase}characters/${id}?apikey=${process.env.REACT_APP_API_KEY}`);
     return this.#transformChar(res.data.results[0]);
+  };
+
+  getComics = async (offset = this.#_offestBase) => {
+    const res = await this.http.request(`${this.#_apiBase}comics?orderBy=title&limit=8&offset=${offset}&apikey=${process.env.REACT_APP_API_KEY}`);
+
+    return res.data.results.map(this.#transformComic);
   };
 }

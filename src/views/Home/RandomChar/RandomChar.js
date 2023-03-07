@@ -43,7 +43,9 @@ const RandomChar = () => {
               Do you want to get to know him better?
             </b>
             <b className="random-char__title">Or choose another one</b>
-            <Button href={null} children={'try it'} classes={['button__main']} onClick={onChangeChar} />
+            <Button href={null} classes={['button__main']} onClick={onChangeChar}>
+              try it
+            </Button>
             <img className="random-char__decor" src={Decor} alt="decor" />
           </div>
         </div>
@@ -68,8 +70,12 @@ const View = ({ char }) => {
         <b className="random-char__name">{name}</b>
         <p className="random-char__description">{description}</p>
         <div className="random-char__btns">
-          <Button href={homepage} children={'homepage'} classes={['button__main']} />
-          <Button href={wiki} children={'wiki'} classes={['button__secondary']} />
+          <Button href={homepage} classes={['button__main']}>
+            homepage
+          </Button>
+          <Button href={wiki} classes={['button__secondary']}>
+            wiki
+          </Button>
         </div>
       </div>
     </>
