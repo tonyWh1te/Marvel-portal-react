@@ -20,6 +20,9 @@ export default class MarvelService {
     id: comic.id,
     title: comic.title,
     thumbnail: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
+    description: comic.description ? comic.description : 'Description not found',
+    language: comic.textObjects[0]?.language || 'en-us',
+    pages: comic.pageCount ? comic.pageCount : 'Number of pages unknown',
     price: comic.prices[0].price === 0 ? 'not avaible' : comic.prices[0].price,
   });
 
@@ -38,5 +41,11 @@ export default class MarvelService {
     const res = await this.http.request(`${this.#_apiBase}comics?orderBy=title&limit=8&offset=${offset}&apikey=${process.env.REACT_APP_API_KEY}`);
 
     return res.data.results.map(this.#transformComic);
+  };
+
+  getComic = async (id) => {
+    const res = await this.http.request(`${this.#_apiBase}comics/${id}?apikey=${process.env.REACT_APP_API_KEY}`);
+
+    return this.#transformComic(res.data.results[0]);
   };
 }

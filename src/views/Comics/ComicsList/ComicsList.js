@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Button from '../../../components/Button/Button';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
@@ -50,11 +51,11 @@ const ComicsList = () => {
 
         return (
           <li className="comics__item" key={id}>
-            <a className="comics__link" href="#">
+            <Link className="comics__link" to={`/comics/${id}`}>
               <img className="comics__img" src={thumbnail} alt={title} style={{ objectFit: objectFit }} />
               <b className="comics__title">{title}</b>
               <b className="comics__price">{`${price}${typeof price === 'number' ? '$' : ''}`}</b>
-            </a>
+            </Link>
           </li>
         );
       }

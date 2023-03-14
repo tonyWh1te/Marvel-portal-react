@@ -30,7 +30,6 @@ const Header = () => {
               <li className="header__list-item">
                 <NavLink
                   className="header__link"
-                  end
                   to="/comics"
                   style={({ isActive }) => {
                     return {
