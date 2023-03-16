@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '../../../components/Spinner/Spinner';
@@ -67,10 +68,14 @@ const View = ({ char: { name, description, thumbnail, homepage, wiki, comics } }
       <b className="char-content__comics">Comics:</b>
       <ul className="char-content__comics-list">
         {comics.length > 0 ? null : 'There is no comics with this character'}
-        {comics.map((comic, i) => {
+        {comics.map(({ name, resourceURI }, i) => {
+          const comicId = resourceURI.match(/\d+$/)[0];
+
           return i < 10 ? (
             <li className="char-content__comics-item" key={i}>
-              {comic.name}
+              <Link className="char-content__link" to={`/comics/${comicId}`}>
+                {name}
+              </Link>
             </li>
           ) : null;
         })}

@@ -48,6 +48,9 @@
   &__comics-item:not(:last-child) {
     margin-bottom: 10px;
   }
+  &__link:hover {
+    text-decoration: underline;
+  }
   &__select {
     font-weight: 700;
     font-size: 18px;
