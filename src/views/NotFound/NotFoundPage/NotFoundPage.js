@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/Button/Button';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 import './NotFoundPage.scss';
@@ -14,7 +14,10 @@ const NotFoundPage = () => {
         <div className="not-found__inner">
           <ErrorMessage />
           <p className="not-found__text">Page doesn't exist</p>
-          <Button href={null} classes={['button__main', 'button__long']} onClick={goBack}>
+          <Button
+            classes={['button__main', 'button__long']}
+            onClick={goBack}
+          >
             back
           </Button>
         </div>

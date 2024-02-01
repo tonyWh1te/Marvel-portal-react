@@ -1,22 +1,30 @@
 import { useEffect, useState } from 'react';
 import MarvelService from '../../../services/MarvelService.service';
-import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
-import Spinner from '../../../components/Spinner/Spinner';
 import { Decor } from '../../../assets';
 import Button from '../../../components/Button/Button';
+import setContent from '../../../utils/helpers/content.helper';
 import './RandomChar.scss';
 
 const RandomChar = () => {
   const [char, setChar] = useState({});
 
   const marvelService = new MarvelService();
-  const { loading, error, clearError } = marvelService.http;
+  const { clearError, process, setProcess } = marvelService.http;
 
-  useEffect(() => updateChar(), []);
+  useEffect(() => {
+    updateChar();
+
+    const interval = setInterval(updateChar, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const updateChar = () => {
     const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-    marvelService.getCharacter(id).then((char) => setChar(char));
+    marvelService.getCharacter(id).then((char) => {
+      setChar(char);
+      setProcess('success');
+    });
   };
 
   const onChangeChar = () => {
@@ -24,29 +32,28 @@ const RandomChar = () => {
     updateChar();
   };
 
-  const errorMessage = error ? <ErrorMessage /> : null;
-  const spinner = loading ? <Spinner /> : null;
-  const content = !(loading || error || Object.keys(char).length === 0) ? <View char={char} /> : null;
-
   return (
     <div className="random-char">
       <div className="container">
         <div className="random-char__inner">
-          <div className="random-char__block">
-            {errorMessage}
-            {spinner}
-            {content}
-          </div>
+          <div className="random-char__block">{setContent(process, View, char)}</div>
           <div className="random-char__choice">
             <b className="random-char__title">
               Random character for today! <br />
               Do you want to get to know him better?
             </b>
             <b className="random-char__title">Or choose another one</b>
-            <Button href={null} classes={['button__main']} onClick={onChangeChar}>
+            <Button
+              classes={['button__main']}
+              onClick={onChangeChar}
+            >
               try it
             </Button>
-            <img className="random-char__decor" src={Decor} alt="decor" />
+            <img
+              className="random-char__decor"
+              src={Decor}
+              alt="decor"
+            />
           </div>
         </div>
       </div>
@@ -54,8 +61,8 @@ const RandomChar = () => {
   );
 };
 
-const View = ({ char }) => {
-  let { name, description, thumbnail, homepage, wiki } = char;
+const View = ({ data }) => {
+  let { name, description, thumbnail, homepage, wiki } = data;
 
   if (description) {
     description = description.length > 220 ? `${description.slice(0, 220)}...` : description;
@@ -65,15 +72,26 @@ const View = ({ char }) => {
 
   return (
     <>
-      <img className="random-char__img" src={thumbnail} alt={name} style={{ objectFit: objectFit }} />
+      <img
+        className="random-char__img"
+        src={thumbnail}
+        alt={name}
+        style={{ objectFit: objectFit }}
+      />
       <div className="random-char__info">
         <b className="random-char__name">{name}</b>
         <p className="random-char__description">{description}</p>
         <div className="random-char__btns">
-          <Button href={homepage} classes={['button__main']}>
+          <Button
+            href={homepage}
+            classes={['button__main']}
+          >
             homepage
           </Button>
-          <Button href={wiki} classes={['button__secondary']}>
+          <Button
+            href={wiki}
+            classes={['button__secondary']}
+          >
             wiki
           </Button>
         </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Vision } from '../../../assets';
 import CharInfo from '../CharInfo/CharInfo';
 import CharList from '../CharList/CharList';
@@ -9,9 +9,12 @@ import './HomePage.scss';
 const HomePage = () => {
   const [selectedChar, setSelectedchar] = useState(null);
 
-  const onCharSelected = (id) => {
-    setSelectedchar(id);
-  };
+  const onCharSelected = useCallback(
+    (id) => {
+      setSelectedchar(id);
+    },
+    [setSelectedchar]
+  );
 
   return (
     <>
@@ -30,7 +33,11 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <img className="bg-decor" src={Vision} alt="vision" />
+      <img
+        className="bg-decor"
+        src={Vision}
+        alt="vision"
+      />
     </>
   );
 };

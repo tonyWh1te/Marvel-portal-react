@@ -1,18 +1,16 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Spinner from '../../../components/Spinner/Spinner';
-import Skeleton from '../../../components/Loaders/Skeleton/Skeleton';
-import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 import Button from '../../../components/Button/Button';
 import MarvelService from '../../../services/MarvelService.service';
+import setContent from '../../../utils/helpers/content.helper';
 import './CharInfo.scss';
 
 const CharInfo = (props) => {
   const [char, setChar] = useState(null);
 
   const marvelService = new MarvelService();
-  const { loading, error, clearError } = marvelService.http;
+  const { clearError, process, setProcess } = marvelService.http;
 
   useEffect(() => updateChar(), [props.charId]);
 
@@ -27,38 +25,39 @@ const CharInfo = (props) => {
 
     marvelService.getCharacter(charId).then((char) => {
       setChar(char);
+      setProcess('success');
     });
   };
 
-  const skeleton = !(error || loading || char) ? <Skeleton /> : null;
-  const errorMessage = error ? <ErrorMessage /> : null;
-  const spinner = loading ? <Spinner /> : null;
-  const content = !(loading || error || !char) ? <View char={char} /> : null;
-
-  return (
-    <div className="char-content__info">
-      {skeleton}
-      {errorMessage}
-      {spinner}
-      {content}
-    </div>
-  );
+  return <div className="char-content__info">{setContent(process, View, char)}</div>;
 };
 
-const View = ({ char: { name, description, thumbnail, homepage, wiki, comics } }) => {
+const View = ({ data }) => {
+  const { name, description, thumbnail, homepage, wiki, comics } = data;
   const objectFit = thumbnail.includes('image_not_available') ? 'contain' : 'cover';
 
   return (
     <>
       <div className="char-content__block">
-        <img className="char-content__info-img" src={thumbnail} alt={name} style={{ objectFit: objectFit }} />
+        <img
+          className="char-content__info-img"
+          src={thumbnail}
+          alt={name}
+          style={{ objectFit: objectFit }}
+        />
         <div>
           <b className="char-content__info-name">{name}</b>
           <div className="char-content__btns">
-            <Button href={homepage} classes={['button__main']}>
+            <Button
+              href={homepage}
+              classes={['button__main']}
+            >
               homepage
             </Button>
-            <Button href={wiki} classes={['button__secondary']}>
+            <Button
+              href={wiki}
+              classes={['button__secondary']}
+            >
               wiki
             </Button>
           </div>
@@ -72,8 +71,14 @@ const View = ({ char: { name, description, thumbnail, homepage, wiki, comics } }
           const comicId = resourceURI.match(/\d+$/)[0];
 
           return i < 10 ? (
-            <li className="char-content__comics-item" key={i}>
-              <Link className="char-content__link" to={`/comics/${comicId}`}>
+            <li
+              className="char-content__comics-item"
+              key={i}
+            >
+              <Link
+                className="char-content__link"
+                to={`/comics/${comicId}`}
+              >
                 {name}
               </Link>
             </li>
