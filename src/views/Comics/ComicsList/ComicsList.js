@@ -1,15 +1,26 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { m } from 'framer-motion';
 import Button from '../../../components/Button/Button';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 import ItemsLoader from '../../../components/Loaders/ItemsLoader/ItemsLoader';
 import MarvelService from '../../../services/MarvelService.service';
+import { liVariants } from '../../../utils/constants';
 import './ComicsList.scss';
 
-const setContent = (process, Component) => {
+const setContent = (process, Component, newItemsLoading) => {
   switch (process) {
     case 'fetching':
-      return <Component />;
+      return newItemsLoading ? (
+        <Component />
+      ) : (
+        <ItemsLoader
+          count={8}
+          options={{ speed: 4, width: 225, height: 415, viewBox: '0 0 225 415' }}
+          loader="comics"
+          parentClasses="comics__list"
+        />
+      );
     case 'error':
       return <ErrorMessage />;
     case 'success':
@@ -28,13 +39,21 @@ const ComicsList = () => {
   const marvelService = new MarvelService();
   const { clearError, process, setProcess } = marvelService.http;
 
-  useEffect(() => onRequest(offset, true), []);
+  const newComicsCount = 8;
+  const newComicsList = newComicsLoading ? [] : comicsList.slice(-newComicsCount);
+  const prevComicsList = comicsList.filter((item) => !newComicsList.some((newItem) => newItem.id === item.id));
+
+  useEffect(() => {
+    const initial = true;
+
+    onRequest(offset, initial);
+  }, []);
 
   const onComicsLoaded = (newComicsList) => {
     const ended = newComicsList.length < 8;
 
     setComicsList((comics) => [...comics, ...newComicsList]);
-    setOffset((offset) => offset + 12);
+    setOffset((offset) => offset + 20);
     setNewComicsLoading(false);
     setComicsEnded(ended);
   };
@@ -53,78 +72,43 @@ const ComicsList = () => {
     onRequest(offset);
   };
 
-  const renderItems = (arr) => {
-    return () => {
-      const loading = process === 'fetching';
+  const renderItems = (items, isAnimated) => {
+    return items.map((item, i) => {
+      const { id, title, thumbnail, price } = item;
 
-      const items = (loading && !newComicsLoading ? [...new Array(8)] : arr).map((items, i) => {
-        if (loading && !newComicsLoading) {
-          return (
-            <ItemsLoader
-              options={{ speed: 4, width: 225, height: 415, viewBox: '0 0 225 415' }}
-              key={i}
-            >
-              <rect
-                x="0"
-                y="0"
-                rx="0"
-                ry="0"
-                width="225"
-                height="346"
-              />
-              <rect
-                x="0"
-                y="356"
-                rx="0"
-                ry="0"
-                width="225"
-                height="10"
-              />
-              <rect
-                x="0"
-                y="371"
-                rx="0"
-                ry="0"
-                width="33"
-                height="10"
-              />
-            </ItemsLoader>
-          );
-        } else {
-          const { id, title, thumbnail, price } = items;
-          const objectFit = thumbnail.includes('image_not_available') ? 'unset' : 'cover';
+      const animate = isAnimated ? 'visible' : '';
+      const initial = isAnimated ? 'hidden' : '';
 
-          return (
-            <li
-              className="comics__item"
-              key={id}
-            >
-              <Link
-                className="comics__link"
-                to={`/comics/${id}`}
-              >
-                <img
-                  className="comics__img"
-                  src={thumbnail}
-                  alt={title}
-                  style={{ objectFit: objectFit }}
-                />
-                <b className="comics__title">{title}</b>
-                <b className="comics__price">{`${price}${typeof price === 'number' ? '$' : ''}`}</b>
-              </Link>
-            </li>
-          );
-        }
-      });
-
-      return <ul className="comics__list">{items}</ul>;
-    };
+      return (
+        <m.li
+          className="comics__item"
+          key={id}
+          variants={liVariants}
+          animate={animate}
+          initial={initial}
+          custom={i}
+          whileHover="comicHover"
+        >
+          <ComicsItem
+            id={id}
+            title={title}
+            thumbnail={thumbnail}
+            price={price}
+          />
+        </m.li>
+      );
+    });
   };
+
+  const normalItems = renderItems(prevComicsList, false);
+  const animatedItems = renderItems(newComicsList, true);
+
+  const items = () => <ul className="comics__list">{[...normalItems, ...animatedItems]}</ul>;
 
   return (
     <div className="comics">
       <div className="container">
-        {setContent(process, renderItems(comicsList))}
+        {setContent(process, items, newComicsLoading)}
         <Button
           classes={['button__main', 'button__long']}
           onClick={onComicsUpload}
@@ -134,6 +118,27 @@ const ComicsList = () => {
         </Button>
       </div>
     </div>
+  );
+};
+
+const ComicsItem = ({ id, thumbnail, title, price }) => {
+  const objectFit = thumbnail.includes('image_not_available') ? 'unset' : 'cover';
+  const currency = typeof price === 'number' ? '$' : '';
+
+  return (
+    <Link
+      className="comics__link"
+      to={`/comics/${id}`}
+    >
+      <img
+        className="comics__img"
+        src={thumbnail}
+        alt={title}
+        style={{ objectFit }}
+      />
+      <b className="comics__title">{title}</b>
+      <b className="comics__price">{`${price}${currency}`}</b>
+    </Link>
   );
 };
 

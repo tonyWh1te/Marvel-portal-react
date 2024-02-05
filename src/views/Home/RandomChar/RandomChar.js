@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { m } from 'framer-motion';
 import MarvelService from '../../../services/MarvelService.service';
 import { Decor } from '../../../assets';
 import Button from '../../../components/Button/Button';
 import setContent from '../../../utils/helpers/content.helper';
+import { divVariants } from '../../../utils/constants';
 import './RandomChar.scss';
 
 const RandomChar = () => {
@@ -36,7 +38,7 @@ const RandomChar = () => {
     <div className="random-char">
       <div className="container">
         <div className="random-char__inner">
-          <div className="random-char__block">{setContent(process, View, char)}</div>
+          {setContent(process, View, char)}
           <div className="random-char__choice">
             <b className="random-char__title">
               Random character for today! <br />
@@ -71,7 +73,12 @@ const View = ({ data }) => {
   const objectFit = thumbnail.includes('image_not_available') ? 'contain' : 'cover';
 
   return (
-    <>
+    <m.div
+      className="random-char__block"
+      variants={divVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <img
         className="random-char__img"
         src={thumbnail}
@@ -96,7 +103,7 @@ const View = ({ data }) => {
           </Button>
         </div>
       </div>
-    </>
+    </m.div>
   );
 };
 

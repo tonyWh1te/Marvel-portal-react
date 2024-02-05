@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { m } from 'framer-motion';
 import Button from '../../../components/Button/Button';
 import MarvelService from '../../../services/MarvelService.service';
 import setContent from '../../../utils/helpers/content.helper';
+import { divVariants } from '../../../utils/constants';
 import './CharInfo.scss';
 
 const CharInfo = (props) => {
@@ -37,7 +39,11 @@ const View = ({ data }) => {
   const objectFit = thumbnail.includes('image_not_available') ? 'contain' : 'cover';
 
   return (
-    <>
+    <m.div
+      variants={divVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <div className="char-content__block">
         <img
           className="char-content__info-img"
@@ -85,7 +91,7 @@ const View = ({ data }) => {
           ) : null;
         })}
       </ul>
-    </>
+    </m.div>
   );
 };
 

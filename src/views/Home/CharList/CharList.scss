@@ -23,7 +23,6 @@
     height: 318px;
     background-color: vars.$dark;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
-    transition: 0.3s transform;
     cursor: pointer;
   }
   &__img {
@@ -34,9 +33,5 @@
     color: #fff;
     padding: 15px;
     @extend %title;
-  }
-  .char-content__list-item--selected {
-    box-shadow: 0 5px 20px vars.$red;
-    transform: translateY(-8px);
   }
 }

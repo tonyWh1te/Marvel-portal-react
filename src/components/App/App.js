@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
-import Spinner from '../Spinner/Spinner';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { LazyMotion, domAnimation, AnimatePresence } from 'framer-motion';
 import Layout from '../Layout/Layout';
 import HomePage from '../../views/Home/HomePage/HomePage';
 
@@ -9,21 +9,41 @@ const NotFoundPage = lazy(() => import('../../views/NotFound/NotFoundPage/NotFou
 const SingleComicPage = lazy(() => import('../../views/SingleComic/SingleComicPage/SingleComicPage'));
 
 const App = () => {
+  const location = useLocation();
+
   return (
-    <Router>
+    <LazyMotion features={domAnimation}>
       <div className="wrapper">
-        <Suspense fallback={<Spinner />}>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<HomePage />} />
-              <Route path="comics" element={<ComicsPage />} />
-              <Route path="comics/:comicId" element={<SingleComicPage />} />
-              <Route path="*" element={<NotFoundPage />} />
+        <AnimatePresence mode="wait">
+          <Routes
+            location={location}
+            key={location.pathname}
+          >
+            <Route
+              path="/"
+              element={<Layout />}
+            >
+              <Route
+                index
+                element={<HomePage />}
+              />
+              <Route
+                path="comics"
+                element={<ComicsPage />}
+              />
+              <Route
+                path="comics/:comicId"
+                element={<SingleComicPage />}
+              />
+              <Route
+                path="*"
+                element={<NotFoundPage />}
+              />
             </Route>
           </Routes>
-        </Suspense>
+        </AnimatePresence>
       </div>
-    </Router>
+    </LazyMotion>
   );
 };
 

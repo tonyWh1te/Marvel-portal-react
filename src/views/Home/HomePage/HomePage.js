@@ -4,6 +4,7 @@ import CharInfo from '../CharInfo/CharInfo';
 import CharList from '../CharList/CharList';
 import ErrorBoundary from '../../../components/ErrorBoundary/ErrorBoundary';
 import RandomChar from '../RandomChar/RandomChar';
+import AnimatedPage from '../../../components/Animatedpage/AnimatedPage';
 import './HomePage.scss';
 
 const HomePage = () => {
@@ -17,7 +18,7 @@ const HomePage = () => {
   );
 
   return (
-    <>
+    <AnimatedPage>
       <ErrorBoundary>
         <RandomChar />
       </ErrorBoundary>
@@ -38,7 +39,7 @@ const HomePage = () => {
         src={Vision}
         alt="vision"
       />
-    </>
+    </AnimatedPage>
   );
 };
 
