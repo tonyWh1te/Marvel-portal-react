@@ -138,7 +138,7 @@ const CharList = (props) => {
 
   const items = () => <ul className="char-content__list">{[...normalItems, ...animatedItems]}</ul>;
 
-  return <div className="char-content__box">{setContent(process, items, firstLoading)}</div>;
+  return <div className="char-content__right">{setContent(process, items, firstLoading)}</div>;
 };
 
 const CharItem = ({ name, thumbnail, objectFit }) => {

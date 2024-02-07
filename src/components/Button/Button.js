@@ -1,7 +1,7 @@
 import './Button.scss';
 
 const Button = (props) => {
-  const { classes, onClick, href = null, btnProps = { disabled: false, styles: {} }, children } = props;
+  const { classes, onClick, href = null, btnProps = { disabled: false, styles: {}, type: 'button' }, children } = props;
   return href ? (
     <a
       className={`button ${classes.join(' ')}`}
@@ -15,6 +15,7 @@ const Button = (props) => {
       onClick={onClick}
       disabled={btnProps.disabled}
       style={btnProps.styles}
+      type={btnProps.type}
     >
       <div className="inner">{children}</div>
     </button>

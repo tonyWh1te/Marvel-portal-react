@@ -3,3 +3,25 @@
   right: 0;
   bottom: 0;
 }
+
+.char-content {
+  padding: 52px 0 44px;
+  position: relative;
+  z-index: 1;
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 25px;
+  }
+  &__left {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: min-content;
+    row-gap: 30px;
+    position: sticky;
+    top: 1px;
+    max-width: 425px;
+  }
+}

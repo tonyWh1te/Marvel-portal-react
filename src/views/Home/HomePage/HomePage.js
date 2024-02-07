@@ -4,6 +4,7 @@ import CharInfo from '../CharInfo/CharInfo';
 import CharList from '../CharList/CharList';
 import ErrorBoundary from '../../../components/ErrorBoundary/ErrorBoundary';
 import RandomChar from '../RandomChar/RandomChar';
+import HomeSearchContainer from '../HomeSearch/HomeSearchContainer/HomeSearchContainer';
 import AnimatedPage from '../../../components/Animatedpage/AnimatedPage';
 import './HomePage.scss';
 
@@ -28,9 +29,14 @@ const HomePage = () => {
             <ErrorBoundary>
               <CharList onCharSelected={onCharSelected} />
             </ErrorBoundary>
-            <ErrorBoundary>
-              <CharInfo charId={selectedChar} />
-            </ErrorBoundary>
+            <div className="char-content__left">
+              <ErrorBoundary>
+                <CharInfo charId={selectedChar} />
+              </ErrorBoundary>
+              <ErrorBoundary>
+                <HomeSearchContainer />
+              </ErrorBoundary>
+            </div>
           </div>
         </div>
       </div>

@@ -6,6 +6,7 @@ import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 import ItemsLoader from '../../../components/Loaders/ItemsLoader/ItemsLoader';
 import MarvelService from '../../../services/MarvelService.service';
 import { liVariants } from '../../../utils/constants';
+import SpinnerBtn from '../../../components/Spinners/SpinnerBtn/SpinnerBtn';
 import './ComicsList.scss';
 
 const setContent = (process, Component, newItemsLoading) => {
@@ -105,6 +106,8 @@ const ComicsList = () => {
 
   const items = () => <ul className="comics__list">{[...normalItems, ...animatedItems]}</ul>;
 
+  const contentBtn = newComicsLoading ? <SpinnerBtn /> : 'load more';
+
   return (
     <div className="comics">
       <div className="container">
@@ -114,7 +117,7 @@ const ComicsList = () => {
           onClick={onComicsUpload}
           btnProps={{ disabled: newComicsLoading, styles: { display: comicsEnded ? 'none' : 'block' } }}
         >
-          load more
+          {contentBtn}
         </Button>
       </div>
     </div>

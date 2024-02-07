@@ -1,17 +1,6 @@
 @use '../../../styles/vars';
 
 .char-content {
-  padding: 52px 0 44px;
-  position: relative;
-  z-index: 1;
-  &__inner {
-    display: flex;
-    column-gap: 25px;
-    align-items: flex-start;
-  }
-  &__box {
-    flex-basis: 60%;
-  }
   &__list {
     display: grid;
     grid-template-columns: repeat(3, 200px);

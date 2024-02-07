@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import Spinner from '../Spinner/Spinner';
+import Spinner from '../../components/Spinners/Spinner/Spinner';
 import Header from '../Header/Header';
 
 const Layout = () => {

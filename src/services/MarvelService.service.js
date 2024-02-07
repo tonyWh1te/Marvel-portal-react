@@ -48,4 +48,10 @@ export default class MarvelService {
 
     return this.#transformComic(res.data.results[0]);
   };
+
+  searchCharacter = async (name) => {
+    const res = await this.http.request(`${this.#_apiBase}characters?name=${name}&apikey=${process.env.REACT_APP_API_KEY}`);
+
+    return res.data.results.map(this.#transformChar);
+  };
 }

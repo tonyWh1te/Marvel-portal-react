@@ -34,6 +34,8 @@ const RandomChar = () => {
     updateChar();
   };
 
+  const loading = process === 'fetching';
+
   return (
     <div className="random-char">
       <div className="container">
@@ -48,6 +50,7 @@ const RandomChar = () => {
             <Button
               classes={['button__main']}
               onClick={onChangeChar}
+              btnProps={{ disabled: loading }}
             >
               try it
             </Button>
