@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { m } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import MarvelService from '../../../services/MarvelService.service';
 import { Decor } from '../../../assets';
 import Button from '../../../components/Button/Button';
@@ -67,7 +68,7 @@ const RandomChar = () => {
 };
 
 const View = ({ data }) => {
-  let { name, description, thumbnail, homepage, wiki } = data;
+  let { name, description, thumbnail, homepage, wiki, id } = data;
 
   if (description) {
     description = description.length > 220 ? `${description.slice(0, 220)}...` : description;
@@ -92,12 +93,12 @@ const View = ({ data }) => {
         <b className="random-char__name">{name}</b>
         <p className="random-char__description">{description}</p>
         <div className="random-char__btns">
-          <Button
-            href={homepage}
-            classes={['button__main']}
+          <Link
+            to={`/characters/${id}`}
+            className="button button__main"
           >
-            homepage
-          </Button>
+            <div className="inner">homepage</div>
+          </Link>
           <Button
             href={wiki}
             classes={['button__secondary']}

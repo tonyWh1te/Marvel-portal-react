@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { LazyMotion, domAnimation, AnimatePresence } from 'framer-motion';
+import { HelmetProvider } from 'react-helmet-async';
 import Layout from '../Layout/Layout';
 import { pages } from '../../utils/constants';
 
@@ -16,42 +17,44 @@ const App = () => {
   const location = useLocation();
 
   return (
-    <LazyMotion features={domAnimation}>
-      <div className="wrapper">
-        <AnimatePresence mode="wait">
-          <Routes
-            location={location}
-            key={location.pathname}
-          >
-            <Route
-              path="/"
-              element={<Layout />}
+    <HelmetProvider>
+      <LazyMotion features={domAnimation}>
+        <div className="wrapper">
+          <AnimatePresence mode="wait">
+            <Routes
+              location={location}
+              key={location.pathname}
             >
               <Route
-                index
-                element={<HomePage />}
-              />
-              <Route
-                path="comics"
-                element={<ComicsPage />}
-              />
-              <Route
-                path="comics/:id"
-                element={<SinglePage Component={SingleComicLayout} />}
-              />
-              <Route
-                path="characters/:id"
-                element={<SinglePage Component={SingleCharLayout} />}
-              />
-              <Route
-                path="*"
-                element={<NotFoundPage />}
-              />
-            </Route>
-          </Routes>
-        </AnimatePresence>
-      </div>
-    </LazyMotion>
+                path="/"
+                element={<Layout />}
+              >
+                <Route
+                  index
+                  element={<HomePage />}
+                />
+                <Route
+                  path="comics"
+                  element={<ComicsPage />}
+                />
+                <Route
+                  path="comics/:id"
+                  element={<SinglePage Component={SingleComicLayout} />}
+                />
+                <Route
+                  path="characters/:id"
+                  element={<SinglePage Component={SingleCharLayout} />}
+                />
+                <Route
+                  path="*"
+                  element={<NotFoundPage />}
+                />
+              </Route>
+            </Routes>
+          </AnimatePresence>
+        </div>
+      </LazyMotion>
+    </HelmetProvider>
   );
 };
 

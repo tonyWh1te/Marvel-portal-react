@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import './SingleComicLayout.scss';
 
@@ -9,6 +10,13 @@ const SingleComicLayout = ({ data }) => {
 
   return (
     <>
+      <Helmet>
+        <meta
+          name="description"
+          content={`The page with the ${title} comic`}
+        />
+        <title>{title}</title>
+      </Helmet>
       <img
         className="single-page__comic-img"
         src={thumbnail}

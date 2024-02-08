@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet-async';
 import './SingleCharLayout.scss';
 
 const SingleCharLayout = ({ data }) => {
@@ -6,6 +7,13 @@ const SingleCharLayout = ({ data }) => {
 
   return (
     <>
+      <Helmet>
+        <meta
+          name="description"
+          content={`The page with the ${name} hero`}
+        />
+        <title>{name}</title>
+      </Helmet>
       <img
         src={thumbnail}
         alt={name}
