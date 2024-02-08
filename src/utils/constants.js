@@ -4,6 +4,15 @@ const colors = {
   grey: '#5c5c5c',
 };
 
+const pages = [
+  { name: 'ComicsPage', path: 'Comics/ComicsPage/ComicsPage' },
+  { name: 'SingleCharLayout', path: 'SinglePageLayout/SingleCharLayout/SingleCharLayout' },
+  { name: 'SingleComicLayout', path: 'SinglePageLayout/SingleComicLayout/SingleComicLayout' },
+  { name: 'NotFoundPage', path: 'NotFound/NotFoundPage/NotFoundPage' },
+  { name: 'SinglePage', path: 'SinglePage/SinglePage' },
+  { name: 'HomePage', path: 'Home/HomePage/HomePage' },
+];
+
 const liVariants = {
   visible: (i) => ({
     y: 0,
@@ -71,4 +80,4 @@ const pageVariants = {
   },
 };
 
-export { liVariants, divVariants, pageVariants };
+export { liVariants, divVariants, pageVariants, pages };

@@ -29,4 +29,4 @@ const useHttp = () => {
   return { request, clearError, process, setProcess };
 };
 
-export { useHttp };
+export default useHttp;

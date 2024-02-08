@@ -1,4 +1,4 @@
-import { useHttp } from '../hooks/hooks';
+import { useHttp } from '../hooks';
 
 export default class MarvelService {
   http = useHttp();
@@ -53,5 +53,11 @@ export default class MarvelService {
     const res = await this.http.request(`${this.#_apiBase}characters?name=${name}&apikey=${process.env.REACT_APP_API_KEY}`);
 
     return res.data.results.map(this.#transformChar);
+  };
+
+  getChar = async (id) => {
+    const res = await this.http.request(`${this.#_apiBase}characters/${id}?apikey=${process.env.REACT_APP_API_KEY}`);
+
+    return this.#transformChar(res.data.results[0]);
   };
 }

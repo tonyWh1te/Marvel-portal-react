@@ -1,41 +1,35 @@
 @use '../../../styles/vars';
 
-.single-comic {
-  padding: 50px 0 50px;
-  &__inner {
-    display: flex;
-    column-gap: 50px;
-    align-items: flex-start;
-  }
-  &__img {
+.single-page {
+  &__comic-img {
     width: 294px;
     height: 450px;
     object-fit: cover;
   }
-  &__info {
+  &__comic-info {
     width: 550px;
   }
-  &__title {
+  &__comic-title {
     @extend %title;
     text-transform: none;
     margin-bottom: 28px;
   }
-  &__desc {
+  &__comic-desc {
     margin-bottom: 25px;
     font-size: 18px;
   }
-  &__price {
+  &__comic-price {
     font-weight: 700;
     font-size: 24px;
     color: vars.$red;
   }
-  &__back {
+  &__comic-back {
     font-weight: 700;
     font-size: 18px;
     flex-grow: 1;
     text-align: end;
   }
-  &__back:hover {
+  &__comic-back:hover {
     color: vars.$red;
   }
 }

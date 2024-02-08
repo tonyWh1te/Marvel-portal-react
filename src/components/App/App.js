@@ -1,12 +1,16 @@
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { LazyMotion, domAnimation, AnimatePresence } from 'framer-motion';
 import Layout from '../Layout/Layout';
-import HomePage from '../../views/Home/HomePage/HomePage';
+import { pages } from '../../utils/constants';
 
-const ComicsPage = lazy(() => import('../../views/Comics/ComicsPage/ComicsPage'));
-const NotFoundPage = lazy(() => import('../../views/NotFound/NotFoundPage/NotFoundPage'));
-const SingleComicPage = lazy(() => import('../../views/SingleComic/SingleComicPage/SingleComicPage'));
+const lazyLoadedPages = pages.reduce((acc, { name, path }) => {
+  acc[name] = lazy(() => import(`../../views/${path}`));
+
+  return acc;
+}, {});
+
+const { ComicsPage, HomePage, NotFoundPage, SinglePage, SingleCharLayout, SingleComicLayout } = lazyLoadedPages;
 
 const App = () => {
   const location = useLocation();
@@ -32,8 +36,12 @@ const App = () => {
                 element={<ComicsPage />}
               />
               <Route
-                path="comics/:comicId"
-                element={<SingleComicPage />}
+                path="comics/:id"
+                element={<SinglePage Component={SingleComicLayout} />}
+              />
+              <Route
+                path="characters/:id"
+                element={<SinglePage Component={SingleCharLayout} />}
               />
               <Route
                 path="*"
