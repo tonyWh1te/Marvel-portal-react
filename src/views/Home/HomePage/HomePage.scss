@@ -1,3 +1,5 @@
+@use '../../../styles/vars';
+
 .bg-decor {
   position: absolute;
   right: 0;
@@ -12,6 +14,10 @@
     display: flex;
     justify-content: space-between;
     column-gap: 25px;
+    @include vars.media('max', 'xl') {
+      column-gap: 0;
+      justify-content: space-evenly;
+    }
   }
   &__left {
     flex: 1 0 auto;
@@ -24,4 +30,8 @@
     top: 1px;
     max-width: 425px;
   }
+}
+
+.mobile-search {
+  padding-top: 25px;
 }

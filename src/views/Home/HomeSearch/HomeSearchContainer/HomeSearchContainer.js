@@ -77,20 +77,20 @@ const View = (props) => {
   const { onSubmit, onChange, loading, btnContent, char, process, errorMsg, search } = props;
 
   return (
-    <div className="char-content__search">
+    <div className="char-search">
       <form
-        className="char-content__search-form"
+        className="char-search__form"
         onSubmit={onSubmit}
       >
         <label
-          className="char-content__search-label"
+          className="char-search__label"
           htmlFor="search"
         >
           Or find a character by name:
         </label>
-        <div className="char-content__search-box">
+        <div className="char-search__box">
           <input
-            className="char-content__search-input"
+            className="char-search__input"
             type="search"
             name="search"
             id="search"

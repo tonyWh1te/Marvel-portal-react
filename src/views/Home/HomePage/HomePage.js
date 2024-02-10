@@ -1,23 +1,44 @@
 import { useCallback, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useMediaQuery } from '../../../hooks';
 import { Vision } from '../../../assets';
 import CharInfo from '../CharInfo/CharInfo';
-import CharList from '../CharList/CharList';
+import CharContent from '../CharContent/CharContent';
 import ErrorBoundary from '../../../components/ErrorBoundary/ErrorBoundary';
 import RandomChar from '../RandomChar/RandomChar';
 import HomeSearchContainer from '../HomeSearch/HomeSearchContainer/HomeSearchContainer';
 import AnimatedPage from '../../../components/Animatedpage/AnimatedPage';
+import Modal from '../../../components/Modal/Modal';
+import Portal from '../../../components/Portal/Portal';
 import './HomePage.scss';
 
 const HomePage = () => {
   const [selectedChar, setSelectedchar] = useState(null);
+  const [modalActive, setModalActive] = useState(false);
+  const media = useMediaQuery('lg');
 
   const onCharSelected = useCallback(
     (id) => {
       setSelectedchar(id);
+
+      if (media) {
+        setModalActive(true);
+      }
     },
-    [setSelectedchar]
+    [setSelectedchar, media]
   );
+
+  const mobileSearch = media && (
+    <div className="mobile-search">
+      <div className="container">
+        <ErrorBoundary>
+          <HomeSearchContainer />
+        </ErrorBoundary>
+      </div>
+    </div>
+  );
+
+  const modalContent = (content) => <>{content}</>;
 
   return (
     <>
@@ -32,29 +53,26 @@ const HomePage = () => {
         <ErrorBoundary>
           <RandomChar />
         </ErrorBoundary>
-        <div className="char-content">
-          <div className="container">
-            <div className="char-content__inner">
-              <ErrorBoundary>
-                <CharList onCharSelected={onCharSelected} />
-              </ErrorBoundary>
-              <div className="char-content__left">
-                <ErrorBoundary>
-                  <CharInfo charId={selectedChar} />
-                </ErrorBoundary>
-                <ErrorBoundary>
-                  <HomeSearchContainer />
-                </ErrorBoundary>
-              </div>
-            </div>
-          </div>
-        </div>
+        {mobileSearch}
+        <CharContent
+          media={media}
+          selectedChar={selectedChar}
+          onCharSelected={onCharSelected}
+        />
         <img
           className="bg-decor"
           src={Vision}
           alt="vision"
         />
       </AnimatedPage>
+      <Portal>
+        <Modal
+          active={modalActive}
+          setActive={setModalActive}
+        >
+          <CharInfo charId={selectedChar}>{modalContent}</CharInfo>
+        </Modal>
+      </Portal>
     </>
   );
 };

@@ -1,4 +1,4 @@
-@use '../../../styles/vars';
+@use '../../styles/vars';
 
 .char-content {
   &__info {
@@ -9,17 +9,30 @@
     display: flex;
     column-gap: 25px;
     margin-bottom: 15px;
+    @include vars.media('max', 'xs') {
+      flex-direction: column;
+      align-items: center;
+      row-gap: 10px;
+    }
   }
   &__info-name {
     display: block;
     color: #000;
     @extend %title;
     margin-bottom: 34px;
+    @include vars.media('max', 'xs') {
+      margin-bottom: 20px;
+      text-align: center;
+    }
   }
   &__btns {
     width: 50%;
     a:nth-child(1) {
       margin-bottom: 10px;
+    }
+    @include vars.media('max', 'xs') {
+      display: flex;
+      column-gap: 5px;
     }
   }
   &__info-img {

@@ -1,24 +1,27 @@
 @use '../../../../styles/vars';
 
-.char-content {
-  &__search {
-    @extend %block;
-    padding: 25px;
-  }
-  &__search-form {
+.char-search {
+  @extend %block;
+  padding: 25px;
+
+  &__form {
     margin-bottom: 20px;
   }
-  &__search-label {
+  &__label {
     display: block;
     font-weight: 700;
     font-size: 18px;
     margin-bottom: 18px;
   }
-  &__search-box {
+  &__box {
     display: flex;
     column-gap: 24px;
+    @include vars.media('max', 'sm') {
+      flex-direction: column;
+      row-gap: 15px;
+    }
   }
-  &__search-input {
+  &__input {
     flex-grow: 1;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     color: rgba(0, 0, 0, 0.5);

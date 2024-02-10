@@ -2,6 +2,14 @@ $red: #9f0013;
 $dark: #232222;
 $grey: #5c5c5c;
 
+$sizes: (
+  'xs': 320px,
+  'sm': 576px,
+  'md': 768px,
+  'lg': 992px,
+  'xl': 1200px,
+);
+
 %title {
   font-weight: 700;
   font-size: 22px;
@@ -11,6 +19,16 @@ $grey: #5c5c5c;
 %block {
   background-color: #fff;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+}
+
+@mixin media($minmax, $media) {
+  @each $size, $resolution in $sizes {
+    @if $media == $size {
+      @media only screen and (#{$minmax}-width: $resolution) {
+        @content;
+      }
+    }
+  }
 }
 
 @keyframes rotation {

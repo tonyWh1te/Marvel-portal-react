@@ -6,6 +6,11 @@
     justify-content: space-between;
     align-items: center;
     padding: 50px 0 54px;
+    @include vars.media('max', 'sm') {
+      flex-direction: column;
+      align-items: center;
+      row-gap: 10px;
+    }
   }
   &__title {
     font-weight: 700;

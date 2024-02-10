@@ -1,5 +1,5 @@
 const HomeSearchError = ({ msg }) => {
-  return <p className="char-content__search-error">{msg}</p>;
+  return <p className="char-search__error">{msg}</p>;
 };
 
 export default HomeSearchError;

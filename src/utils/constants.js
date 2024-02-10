@@ -4,6 +4,14 @@ const colors = {
   grey: '#5c5c5c',
 };
 
+const sizes = {
+  xs: '320px',
+  sm: '576px',
+  md: '768px',
+  lg: '992px',
+  xl: '1200px',
+};
+
 const pages = [
   { name: 'ComicsPage', path: 'Comics/ComicsPage/ComicsPage' },
   { name: 'SingleCharLayout', path: 'SinglePageLayout/SingleCharLayout/SingleCharLayout' },
@@ -80,4 +88,4 @@ const pageVariants = {
   },
 };
 
-export { liVariants, divVariants, pageVariants, pages };
+export { liVariants, divVariants, pageVariants, pages, sizes };
