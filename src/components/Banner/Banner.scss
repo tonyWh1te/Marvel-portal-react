@@ -8,11 +8,36 @@
     padding: 0 25px 0 45px;
     display: grid;
     grid-template-columns: 152px auto 133px;
+    @include vars.media('max', 'sm') {
+      grid-template-columns: repeat(2, 1fr);
+      align-items: center;
+    }
+    @include vars.media('max', 'xs') {
+      grid-template-columns: 1fr;
+    }
   }
   &__text {
     padding: 18px 0 26px 82px;
     color: #fff;
     font-weight: 700;
     font-size: 24px;
+    @include vars.media('max', 'sm') {
+      padding: 0;
+    }
+    @include vars.media('max', 'xs') {
+      font-size: 20px;
+      padding: 10px;
+      text-align: center;
+    }
+  }
+  &__avengers {
+    @include vars.media('max', 'xs') {
+      display: none;
+    }
+  }
+  &__avengers-logo {
+    @include vars.media('max', 'sm') {
+      display: none;
+    }
   }
 }

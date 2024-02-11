@@ -1,3 +1,5 @@
+@use '../../../styles/vars';
+
 .comics {
   padding: 50px 0;
   &__list {
@@ -6,6 +8,16 @@
     row-gap: 56px;
     justify-content: space-between;
     margin-bottom: 44px;
+    @include vars.media('max', 'md') {
+      grid-template-columns: repeat(3, 225px);
+    }
+    @include vars.media('max', 'sm') {
+      grid-template-columns: repeat(2, 225px);
+      justify-content: space-around;
+    }
+    @include vars.media('max', 'xs') {
+      grid-template-columns: 225px;
+    }
   }
   &__link {
     display: inline-block;

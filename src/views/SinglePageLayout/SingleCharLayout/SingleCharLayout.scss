@@ -6,6 +6,11 @@
     height: 293px;
     object-fit: cover;
   }
+  &__char-info {
+    @include vars.media('max', 'xs') {
+      text-align: center;
+    }
+  }
   &__char-title {
     @extend %title;
     text-transform: none;

@@ -7,7 +7,16 @@
     object-fit: cover;
   }
   &__comic-info {
-    width: 550px;
+    max-width: 550px;
+    @include vars.media('max', 'lg') {
+      max-width: 470px;
+    }
+    @include vars.media('max', 'md') {
+      max-width: 310px;
+    }
+    @include vars.media('max', 'xs') {
+      text-align: center;
+    }
   }
   &__comic-title {
     @extend %title;
@@ -17,6 +26,9 @@
   &__comic-desc {
     margin-bottom: 25px;
     font-size: 18px;
+    @include vars.media('max', 'xs') {
+      margin-bottom: 18px;
+    }
   }
   &__comic-price {
     font-weight: 700;
@@ -28,6 +40,9 @@
     font-size: 18px;
     flex-grow: 1;
     text-align: end;
+    @include vars.media('max', 'sm') {
+      display: none;
+    }
   }
   &__comic-back:hover {
     color: vars.$red;
